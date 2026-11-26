@@ -1,0 +1,131 @@
+/* StatAtlas: one stylesheet, system fonts only, no network requests. */
+:root {
+  --ink: #14202e;
+  --muted: #5b6b7c;
+  --line: #dfe6ec;
+  --bg: #f6f8fa;
+  --card: #ffffff;
+  --accent: #0b6e63;
+  --accent-soft: #e2f2ef;
+  --bar: #7fa8c9;
+  --track: #e6ebef;
+  --gold: #b7791f;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+}
+a { color: var(--accent); }
+a:hover { text-decoration-thickness: 2px; }
+.loading { padding: 3rem 1rem; text-align: center; color: var(--muted); }
+
+/* Header */
+.site-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  max-width: 1080px; margin: 0 auto; padding: 1rem 1.25rem 0.5rem; flex-wrap: wrap;
+}
+.brand { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.brand::after { content: " ◆"; color: var(--accent); font-size: 0.9rem; }
+.site-head nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.site-head nav a { color: var(--ink); text-decoration: none; font-weight: 600; }
+.site-head nav a[aria-current="page"] { color: var(--accent); border-bottom: 2px solid var(--accent); }
+.site-head nav a:hover { color: var(--accent); }
+
+/* Layout */
+main { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem 2rem; }
+.hero { padding: 0.9rem 0 0.6rem; }
+.hero h1 { font-size: 1.85rem; line-height: 1.15; margin: 0.25rem 0 0.6rem; letter-spacing: -0.02em; }
+.kicker { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.8rem; margin: 0; }
+.kicker a { text-decoration: none; }
+.lede { font-size: 1.05rem; color: var(--muted); max-width: 62ch; margin: 0 0 0.7rem; }
+.year { color: var(--muted); font-weight: 400; font-size: 0.85em; }
+.count { color: var(--muted); font-weight: 400; font-size: 0.85em; }
+.hint { color: var(--muted); font-size: 0.9rem; }
+.source-line { font-size: 0.95rem; background: var(--accent-soft); padding: 0.6rem 0.8rem; border-radius: 8px; }
+
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.5rem; margin: 0.8rem 0; }
+.panel h2 { margin: 0 0 0.5rem; font-size: 1.25rem; letter-spacing: -0.01em; }
+.panel h2 + .hint { margin-top: 0; }
+
+/* Search, chips, pickers */
+.search { margin: 0.7rem 0; }
+.search label { display: block; font-weight: 700; margin-bottom: 0.35rem; }
+.search input[type="search"] {
+  width: min(480px, 100%); padding: 0.65rem 0.9rem; font-size: 1rem;
+  border: 2px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
+}
+.search input[type="search"]:focus { outline: none; border-color: var(--accent); }
+.chips, .pickers { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+.chip {
+  display: inline-block; padding: 0.3rem 0.7rem; border: 1px solid var(--line); border-radius: 999px;
+  background: #fff; color: var(--ink); text-decoration: none; font-size: 0.88rem; font-weight: 600;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { padding: 0.55rem 0.6rem; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+th a { color: var(--muted); text-decoration: none; }
+th a:hover { color: var(--accent); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:hover { background: #f2f6f8; }
+.country-link { font-weight: 700; color: var(--ink); text-decoration: none; }
+.country-link:hover { color: var(--accent); text-decoration: underline; }
+.rank-inline { color: var(--gold); font-weight: 700; font-size: 0.85em; }
+
+/* Charts */
+.chart { width: 100%; height: auto; display: block; }
+.chart-label { font-size: 12px; fill: var(--ink); }
+.chart-value { font-size: 12px; font-weight: 700; fill: var(--ink); }
+.gauge { max-width: 420px; }
+
+/* Country stat cards */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.stat-card { border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; background: #fbfcfd; }
+.stat-card h3 { margin: 0 0 0.25rem; font-size: 0.95rem; }
+.stat-card h3 a { color: var(--ink); text-decoration: none; }
+.stat-card h3 a:hover { color: var(--accent); }
+.stat-card .big { font-size: 1.7rem; font-weight: 800; margin: 0.1rem 0; letter-spacing: -0.02em; }
+.stat-card .sub { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.stat-card .rank { margin: 0.4rem 0 0; font-weight: 700; color: var(--gold); font-size: 0.9rem; }
+.stat-card .src { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.8rem; }
+
+/* Compare */
+.compare-selects { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0 0.5rem; }
+.compare-selects label { font-weight: 700; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.compare-selects select {
+  padding: 0.55rem 0.7rem; font-size: 1rem; border: 2px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
+}
+.mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+.mini-chart { border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem 1rem; background: #fbfcfd; }
+.mini-chart h3 { margin: 0 0 0.4rem; font-size: 1rem; }
+.mini-chart h3 a { color: var(--ink); text-decoration: none; }
+.mini-chart .sub { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.85rem; }
+
+/* Buttons, lists, footer */
+.button {
+  display: inline-block; background: var(--accent); color: #fff; font-weight: 700;
+  padding: 0.6rem 1.1rem; border-radius: 8px; text-decoration: none;
+}
+.button:hover { background: #09594f; color: #fff; }
+.read-list li { margin-bottom: 0.6rem; }
+.site-foot {
+  max-width: 1080px; margin: 0 auto; padding: 1rem 1.25rem 2.5rem;
+  color: var(--muted); font-size: 0.88rem; border-top: 1px solid var(--line);
+}
+
+/* Phone layout */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.6rem; }
+  .panel { padding: 1rem; }
+  .site-head nav { gap: 0.9rem; }
+  .stat-card .big { font-size: 1.45rem; }
+  th, td { padding: 0.45rem 0.4rem; font-size: 0.88rem; }
+}

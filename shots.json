@@ -1,0 +1,6 @@
+[
+  { "file": "1-home.jpg", "path": "#/", "viewport": { "width": 1280, "height": 800 } },
+  { "file": "2-country.jpg", "path": "#/country/JPN", "viewport": { "width": 1280, "height": 800 } },
+  { "file": "3-compare.jpg", "path": "#/compare?c=USA&c=CHN&c=IND", "viewport": { "width": 1280, "height": 800 } },
+  { "file": "4-phone.jpg", "path": "#/", "viewport": { "width": 390, "height": 844 } }
+]
