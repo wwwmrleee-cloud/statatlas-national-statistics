@@ -1,3 +1,8 @@
+// StatAtlas — national statistics for 24 countries, 9 indicators, every figure
+// sourced from the World Bank (World Development Indicators, fetched 2026-11-26).
+// The site itself is app/ (static files, no build step, no network requests);
+// this entrypoint only hands it in, then self-checks the handoff below.
+//
 // A working best-site-01 entry (Node 22, standard library only): the site is this directory's app/ folder, plain
 // static files a browser opens at app/index.html (ES modules, CSS, no build step), its content held in its own files:
 // nothing it runs, styles or shows loads over the network. The program hands it in: it copies app/ and screenshots/
@@ -14,7 +19,7 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-frontend.ts';
@@ -34,3 +39,14 @@ writeFileSync(
   join(out, 'dossier.json'),
   buildDossier(out, { text_max_bytes: 163840, screenshots: { max: 4, max_bytes: 262144 }, app_max_files: 993, app_max_bytes: 16777216 }),
 );
+
+// StatAtlas post-build self-check: the handoff must actually exist, and the entry
+// must carry the screenshots the judge reads (the first by name is the cover).
+// Fail loudly here rather than handing in an empty output directory.
+const dossierBytes = statSync(join(out, 'dossier.json')).size;
+if (dossierBytes === 0) throw new Error('dossier.json is empty');
+const dossier = JSON.parse(readFileSync(join(out, 'dossier.json'), 'utf-8'));
+if (!dossier || typeof dossier !== 'object') throw new Error('dossier.json did not parse');
+const shots = readdirSync(join(out, 'screenshots')).filter((f) => /\.(png|jpe?g)$/i.test(f));
+if (shots.length === 0) throw new Error('no screenshots in /output/screenshots');
+console.error(`StatAtlas handed in: dossier.json ${dossierBytes} bytes, ${shots.length} screenshot(s)`);
